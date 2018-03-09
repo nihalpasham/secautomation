@@ -1,2 +1,2 @@
 # Security-Automation
-A few js/python scripts that can be repurposed to save time
+A few node.js & python scripts that can be repurposed to save time
