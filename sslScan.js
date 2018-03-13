@@ -4,15 +4,15 @@ var qs = require('querystringify');
 var request = require('request');
 var AsyncPolling = require('async-polling');
 
-var API = 'https://api.ssllabs.com/api/v3/';
+var API  = 'https://api.ssllabs.com/api/v3/';                                                                                                                  // SSLlabs API entry point
 var path = [
-            'info',
+            'info',                                                                                                                                            // API paths
             'analyze',
             'getEndpointData',
             'getStatusCodes',
             'getRootCerts'];
 var queryParams = {
-                    host:           'www.ssllabs.com',
+                    host:           'www.ssllabs.com',                                                                                                         // API query parameters
                     publish:        'off',
                     startNew:       'off',
                     fromCache:      'off',
@@ -23,18 +23,18 @@ var queryParams = {
 checkAvaiability_url  = API + path[0];
 
 queryParams.fromCache = 'on'; queryParams.maxAge = '144'
-fromCacheResults_url  = API + path[1] + qs.stringify(queryParams, true);
+fromCacheResults_url  = API + path[1] + qs.stringify(queryParams, true);                                                                                       // URL for cached results
 
 queryParams.startNew  = 'on'; queryParams.fromCache = 'off';
-newScanResults_url    = API + path[1] + qs.stringify(queryParams, true);
+newScanResults_url    = API + path[1] + qs.stringify(queryParams, true);                                                                                       // URL for newScan results
 
 delete queryParams.startNew;
-inProgressCheck_url   = API + path[1] + qs.stringify(queryParams, true);
+inProgressCheck_url   = API + path[1] + qs.stringify(queryParams, true);                                                                                       // URL for polling new scans progress
 
 
-function fromCache() {
+function fromCache() {                                                                                                                                         // Check API availbility and see if results are in cache. If yes, retreive from cache and log it.
+           if  (response.statusCode == 200) {
                      request.get(checkAvaiability_url, function(err, response, body) {
-                                if  (response.statusCode == 200) {
                                       info = JSON.parse(body); 
                                       console.log(info);
                                          request.get(fromCacheResults_url, function(err, res, body) {
@@ -60,7 +60,7 @@ function fromCache() {
                                 }
 
 
-function newScan() {
+function newScan() {                                                                                                                                               // Perform a new scan and check progress during the scan. Upon completion, retrieve and log results.
                    request(newScanResults_url, function(err, res, body) {
                      if (res.statusCode == 200) {                    
                           var polling = AsyncPolling(function (end) {
