@@ -11,10 +11,9 @@ if (process.argv.length <= 4) {
   }
   console.log('\n ...Running TLS health check for: ', hostName);
 } else {
-  console.log("Usage: " + __filename + " hostname" + " {OPTNL} checkcache ");
+  console.log("Usage: " + __filename + " hostname" + " and an {optional} checkcache flag ");
   process.exit(-1);
 }
-
 
 
 var API = 'https://api.ssllabs.com/api/v3/'; // SSLlabs API entry point
@@ -79,13 +78,16 @@ function newScan() { // Perform a new scan and check progress during the scan. U
       var polling = AsyncPolling(function (end)  {    
         request(inProgressCheck_url, function(err, res, body) {
           Host = JSON.parse(body);
-          console.log(Host);
-          if (Host.status == 'READY' || Host.status == 'ERROR') {
-            process.exit(-1);
+          console.log(Host.status);
+          if (Host.status === 'READY' || Host.status === 'ERROR') {
+            console.log(Host);
+            polling.stop();
           }
         });
         end();
-      },  10000).run();
+      },  10000)
+      polling.run();
+
 
     } else {
       console.log('HTTP error at New scan results retrieval time: ', err);
