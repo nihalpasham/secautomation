@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/nihalpasham/secautomation"
 )
 
 var (
@@ -13,7 +14,6 @@ var (
 )
 
 func init() {
-
 	flag.StringVar(&domain, "d", "", "domain to be looked up")
 	flag.StringVar(&ip, "ip", "", "IP to be looked up")
 }

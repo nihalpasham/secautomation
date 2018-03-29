@@ -27,7 +27,7 @@ func init() {
 	flag.StringVar(&ip, "ip", "", "IP to be looked up")
 }
 
-func newClient() *Client {
+func NewClient() *Client {
 
 	c := &Client{
 		entryPoint: baseURL,
@@ -54,7 +54,7 @@ func (c *Client) domainsearch(domain string) (*DomainSearch, error) {
 	return &result, nil
 }
 
-func (c *Client) ipsearch(ip string) (*ipSearch, error) {
+func (c *Client) ipsearch(ip string) (*IpSearch, error) {
 	var result ipSearch
 	err := c.query("GET", c.entryPoint+"badip/"+ip, nil, &result)
 	if err != nil {
@@ -132,7 +132,7 @@ type DomainSearch struct {
 }
 
 // ipSearch holds the list of all blacklist for a given IP (if any)
-type ipSearch struct {
+type IpSearch struct {
 	Type     string   `json:"type"`
 	Response []string `json:"response"`
 }
