@@ -1,38 +1,38 @@
 package apility
 
 import (
-			"fmt"
-			"flag"
-			"net/http"
-			"io"
-			"encoding/json"
-			"net/http/httputil"
-			"os"
+		"fmt"
+		"flag"
+		"net/http"
+		"io"
+		"encoding/json"
+		"net/http/httputil"
+		"os"
 )
 
 const (
-			baseURL  =  "https://api.apility.net/"
-			apiKey	 =  ""								//get an API key from apility.io by signing up
+	   baseURL  =  "https://api.apility.net/"
+	   apiKey	 =  ""								//get an API key from apility.io by signing up
 )
 
 var (	
-			domain   string
-			ip		 string
-			url      string
+	 domain   string
+	 ip		  string
+	 url      string
 )
 
 func init() {
 
-			flag.StringVar(&domain, "d", "", "domain to be looked up")
-			flag.StringVar(&ip, "ip", "", "IP to be looked up")				
+	flag.StringVar(&domain, "d", "", "domain to be looked up")
+	flag.StringVar(&ip, "ip", "", "IP to be looked up")				
 }
 
 func newClient() (*Client) {
 
 	c := &Client {
-			entryPoint: baseURL,
-			c: 	 		http.DefaultClient,
-			apiKey:		apiKey,
+		entryPoint: baseURL,
+		c: 	 		http.DefaultClient,
+		apiKey:		apiKey,
 		}
 	return c
 }
@@ -41,9 +41,9 @@ func newClient() (*Client) {
 // Client interacts with the services provided by apility.io
 type Client struct {
 
-			c 			*http.Client 
-			entryPoint 	string
-			apiKey 		string
+	c 			*http.Client 
+	entryPoint 	string
+	apiKey 		string
 
 }
 
@@ -107,66 +107,34 @@ func (c *Client) query(method, url string, body io.Reader, result interface{}) e
 		}
 
 
-func main() {
-
-			flag.Parse()
-			c := newClient()
-
-			switch {
-				case domain != "":
-					fmt.Println("checking domain:", domain)
-					res, err := c.domainsearch(domain)
-					if err != nil {
-						fmt.Printf("Error : %#v\n", err)
-						} else {
-							b, err := json.MarshalIndent(res, "", "\t")
-							if err == nil {
-							fmt.Println(string(b))
-							}	
-						}
-				case ip != "":
-					fmt.Println("checking ip:", ip)
-					res, err := c.ipsearch(ip)
-					if err != nil {
-						fmt.Printf("Error : %#v\n", err)
-					} else {
-						b, err := json.MarshalIndent(res, "", "\t")
-						if err == nil {
-							fmt.Println(string(b))
-						}
-					}
-				}
-
-}
-
 // DomainSearch holds the full bad domain details if any 
 type DomainSearch struct {
 
-	Type     	 string      `json:"type"`
-		Response   struct {  	    
-			Domain   struct {     
-				MX    	  	  []string	  `json:"mx"`
-				NS            []string    `json:"ns"`
-				BlacklistMx   []string    `json:"blacklist_mx"`
-				BlacklistNs   []string    `json:"blacklist_ns"`
-				Blacklist	  []string	  `json:"blacklist"`
-				score		  int		  `json:"score"`
-			}`json:"domain"`
-			Score 	   int		`json:"score"`
-			SourceIP  struct {
-				Score		   int		`json:"score"`
-         		Address	  	   string	`json:"address"`		   	
-         		IsQuarantined  bool		`json:"is_quarantined"`
-				Blacklist      []string	`json:"blacklist"`
-			} `json:"source_ip"`
-			IP   struct {
-				Score   	   int 		`json:"score"`
-				Address		   string	`json:"address`
-				IsQuarantined  bool		`json:"is_quarantined"`
-				Blacklist	   []string	`json:"blacklist"`
-			}`json:"ip"`
-					 
-		}`json:"response"`
+	Type    string    `json:"type"`
+	Response   struct {  	    
+		Domain   struct {     
+			MX    	  	  []string	  `json:"mx"`
+			NS            []string    `json:"ns"`
+			BlacklistMx   []string    `json:"blacklist_mx"`
+			BlacklistNs   []string    `json:"blacklist_ns"`
+			Blacklist	  []string	  `json:"blacklist"`
+			score		  int		  `json:"score"`
+		}`json:"domain"`
+		Score 	   int		`json:"score"`
+		SourceIP  struct {
+			Score		   int		`json:"score"`
+			Address	  	   string	`json:"address"`		   	
+			IsQuarantined  bool		`json:"is_quarantined"`
+			Blacklist      []string	`json:"blacklist"`
+		} `json:"source_ip"`
+		IP   struct {
+			Score   	   int 		`json:"score"`
+			Address		   string	`json:"address`
+			IsQuarantined  bool		`json:"is_quarantined"`
+			Blacklist	   []string	`json:"blacklist"`
+		}`json:"ip"`
+					
+	}`json:"response"`
 }
 
 // ipSearch holds the list of all blacklist for a given IP (if any)

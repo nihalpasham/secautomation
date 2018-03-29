@@ -1,26 +1,26 @@
 package main
 
 import (
-			"fmt"
-			"flag"
-			"net/http"
-			"io"
-			"encoding/json"
-			"net/http/httputil"
-			"os"
-			"github.com/nihalpasham/secautomation/apility"
+		"fmt"
+		"flag"
+		"net/http"
+		"io"
+		"encoding/json"
+		"net/http/httputil"
+		"os"
+		"github.com/nihalpasham/secautomation/apility"
 )
 
 var (	
-			domain   string
-			ip		 string
-			url      string
+	 domain   string
+	 ip		 string
+	 url      string
 )
 
 func init() {
 
-			flag.StringVar(&domain, "d", "", "domain to be looked up")
-			flag.StringVar(&ip, "ip", "", "IP to be looked up")				
+	flag.StringVar(&domain, "d", "", "domain to be looked up")
+	flag.StringVar(&ip, "ip", "", "IP to be looked up")				
 }
 
 
