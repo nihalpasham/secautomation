@@ -1,6 +1,6 @@
 var qs = require('querystringify');
 var request = require('request');
-var  AsyncPolling  = require('async-polling');
+var AsyncPolling  = require('async-polling');
 var hostName;
 var checkCache;
 
