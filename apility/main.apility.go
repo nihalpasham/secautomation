@@ -8,7 +8,7 @@ import (
 			"encoding/json"
 			"net/http/httputil"
 			"os"
-			"github.com/nihalpasham/Security-Automation"
+			"github.com/nihalpasham/secautomation/apility"
 )
 
 var (	

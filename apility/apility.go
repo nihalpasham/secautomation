@@ -1,4 +1,4 @@
-package main
+package apility
 
 import (
 			"fmt"
@@ -12,7 +12,7 @@ import (
 
 const (
 			baseURL  =  "https://api.apility.net/"
-			apiKey	 =  "62a12946-e056-46a5-b13e-079e75d73747"		
+			apiKey	 =  ""								//get an API key from apility.io by signing up
 )
 
 var (	
