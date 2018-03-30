@@ -45,7 +45,8 @@ type Client struct {
 	apiKey     string
 }
 
-func (c *Client) domainsearch(domain string) (*DomainSearch, error) {
+// Domainsearch performs a baddomain search given a valid domain
+func (c *Client) Domainsearch(domain string) (*DomainSearch, error) {
 	var result DomainSearch
 	err := c.query("GET", c.entryPoint+"baddomain/"+domain, nil, &result)
 	if err != nil {
@@ -55,7 +56,8 @@ func (c *Client) domainsearch(domain string) (*DomainSearch, error) {
 	return &result, nil
 }
 
-func (c *Client) ipsearch(ip string) (*IPSearch, error) {
+// IPsearch performs a IPsearch given a valid IP
+func (c *Client) IPsearch(ip string) (*IPSearch, error) {
 	var result IPSearch
 	err := c.query("GET", c.entryPoint+"badip/"+ip, nil, &result)
 	if err != nil {
@@ -104,7 +106,7 @@ func (c *Client) query(method, url string, body io.Reader, result interface{}) e
 	return nil
 }
 
-// DomainSearch holds the full bad domain details if any
+// DomainSearch holds the full bad domain details for 200 OK response
 type DomainSearch struct {
 	Type     string `json:"type"`
 	Response struct {
@@ -114,7 +116,7 @@ type DomainSearch struct {
 			BlacklistMx []string `json:"blacklist_mx"`
 			BlacklistNs []string `json:"blacklist_ns"`
 			Blacklist   []string `json:"blacklist"`
-			score       int      `json:"score"`
+			Score       int      `json:"score"`
 		} `json:"domain"`
 		Score    int `json:"score"`
 		SourceIP struct {
@@ -125,7 +127,7 @@ type DomainSearch struct {
 		} `json:"source_ip"`
 		IP struct {
 			Score         int      `json:"score"`
-			Address       string   `json:"address`
+			Address       string   `json:"address"`
 			IsQuarantined bool     `json:"is_quarantined"`
 			Blacklist     []string `json:"blacklist"`
 		} `json:"ip"`

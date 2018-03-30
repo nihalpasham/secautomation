@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/nihalpasham/secautomation/apility"
+	"apility"
 )
 
 var (
@@ -21,7 +21,7 @@ func init() {
 func main() {
 
 	flag.Parse()
-	c := newClient()
+	c := apility.NewClient()
 
 	switch {
 	case domain != "":
