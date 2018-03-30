@@ -2,7 +2,6 @@ package apility
 
 import (
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -20,12 +19,6 @@ var (
 	ip     string
 	url    string
 )
-
-func init() {
-
-	flag.StringVar(&domain, "d", "", "domain to be looked up")
-	flag.StringVar(&ip, "ip", "", "IP to be looked up")
-}
 
 // NewClient instantiates a new client
 func NewClient() *Client {
