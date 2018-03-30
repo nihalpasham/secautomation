@@ -26,7 +26,7 @@ func main() {
 	switch {
 	case domain != "":
 		fmt.Println("checking domain:", domain)
-		res, err := c.domainsearch(domain)
+		res, err := c.Domainsearch(domain)
 		if err != nil {
 			fmt.Printf("Error : %#v\n", err)
 		} else {
@@ -37,7 +37,7 @@ func main() {
 		}
 	case ip != "":
 		fmt.Println("checking ip:", ip)
-		res, err := c.ipsearch(ip)
+		res, err := c.IPsearch(ip)
 		if err != nil {
 			fmt.Printf("Error : %#v\n", err)
 		} else {
