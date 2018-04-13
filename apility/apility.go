@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	baseURL = "https://api.apility.net/"
-	apiKey  = "" //get an API key from apility.io by signing up
+	baseURL = "https://api.apility.net/" // API entrypoint
+	apiKey  = ""                         //get an API key from apility.io by signing up
 )
 
 var (
