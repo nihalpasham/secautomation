@@ -10,7 +10,7 @@ Goals:
 	3. And a simpler programming style that allows for repurposing. 
 	
 
-sslScan.js
+## sslScan.js
 
 A node script that's essentially a tiny client leveraging the ssllabs api to perform a TLS scan of a given endpoint. It takes 2 command line arguments:
 
@@ -47,4 +47,6 @@ Lambda:
 	3. But here's a working link that should give you an idea - https://e4jtf0bv84.execute-api.ap-south-1.amazonaws.com/prod_QA/-sslscan?hostname=www.google.com
 
 A screenshot of the resultant JSON object:
+
+![sslscan js readme 4](https://user-images.githubusercontent.com/20253082/39177024-dc580820-47cb-11e8-9d03-73dc17ce6651.png)
 
