@@ -62,6 +62,8 @@ func (c *Client) IPsearch(ip string) (*IPSearch, error) {
 
 func (c *Client) query(method, url string, body io.Reader, result interface{}) error {
 
+	fmt.Print(url)
+
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return err
@@ -74,7 +76,7 @@ func (c *Client) query(method, url string, body io.Reader, result interface{}) e
 	if err != nil {
 		return err
 	}
-	fmt.Printf("http StatusCode : %#v\n\n", resp.StatusCode)
+	fmt.Printf("http StatusCode: %#v\n\n", resp.StatusCode)
 
 	if resp.Body != nil {
 		defer resp.Body.Close()
