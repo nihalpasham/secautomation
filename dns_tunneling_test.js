@@ -31,11 +31,13 @@ var buff = packet.encode({
   }]
 });
 
+console.log("\n ...Response begins:"); // Printing the number of encoded bytes
 socket.on('message', function(message, rinfo) {
   console.log(rinfo); // Printing response info
   var hname_extract = packet.decode(message).questions[0].name;
+  console.log("\n" + hname_extract);
   str_extract = Buffer.from(((hname_extract.replace(("." + tld), " ")).replace(/_/g, "=")), 'base64').toString(); // base64 decode and log included payload
-  console.log(str_extract);
+  console.log("\n" + str_extract);
 });
 
 socket.send(buff, 0, buff.length, 53, '8.8.8.8');
