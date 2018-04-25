@@ -27,9 +27,7 @@ Usage:
 	node sslScan.js 'your hostName' and the optional 'checkcache=cache' argument
 
 
-Notes: 
-
-This script has 2 functions 
+Notes: This script has 2 functions 
 
 	1. newScan: performs a new TLS scan asynchronously i.e. if you dont use the optional 'checkcache=cache' flag, 
 		a. A newScan calls on the ssllabs api to perform a new scan. 
@@ -72,7 +70,7 @@ Notes:
 
 	1. The test script uses 'dns.com' as its tld as I didn't want to spin up my own dns server and host my own domain.  
 	2. So if you want to go beyond the quick test case here. You'll need your own domain (or dns server) to which you can send these queries.
-	3. ### Note: the response returned is all garbled as DNS messages are case insensitive. Decoding a case insensitive message gives you garbage. To work around this, you'll need a dns server (like most attacker controlled domains) that preserves case.  
+### Note: the response returned is garbled as DNS messages are case insensitive. Decoding a case insensitive base64 encoded message gives you garbage. To work around this, you'll need a dns server (like most attacker controlled domains) that preserves case.  
 	3. Some info on the client's operation:
 		a. Takes the payload, chunks it into dns labels of 63 bytes each to create a fully qualified domain name
 		b. Encodes to base64
@@ -86,3 +84,44 @@ Lambda:
 A command line screenshot:
 
 ![dns_tunneling_screenshot](https://user-images.githubusercontent.com/20253082/39226271-ef4b808a-486e-11e8-80de-2caf74d8ad5f.png)
+
+
+## apility
+
+A tool written in golang that leverages the apility api to perform simple and fast 'bad' IP/DOMAIN lookups. You can lookup an IP or domain use the the following flags.
+
+	1. '-ip={ipAddress}' 
+	2. '-d={hostName}'
+	3. Doesn't get any simpler than this. 
+
+ Installation: 
+ 
+ 	1. Install 'golang' from the official golang site
+	2. Download the apility and main.go packages from from this repo
+	3. Ensure that the apility package is in your GOROOT path or GOPATH. 
+	4. Sign up for an apility account and get your API key
+	5. Paste the apikey in the apility.go file in your constants
+	6. And your good to go.
+	
+Usage: 
+
+	go run main.go -ip={ipAddress}
+	go run main.go -d={hostName}
+
+Notes:  
+
+	1. Please refer to the apility's api documentation for more info - https://apility.io/apidocs/
+	2. You could expand your search to a lot more - ASNs, GeoIP lookups 
+	3. Please spend some time understanding blacklists and how they're populated. It helps!
+
+Lambda: 
+
+	1. This client can be easily adapted to run in a serverless environment with very little modification. 
+	2. Unfortunately, I cant show you the exact piece of serverless code. 
+	3. But without hesistation, I can say that this architecture changes the way incident response gets done in terms of agility.
+	
+
+A command line screenshot:
+
+![apility_badip_screenshot](https://user-images.githubusercontent.com/20253082/39230492-4b7a1dc0-4884-11e8-8d6b-34c00fd0947e.PNG)
+![apility_baddomain_screenshot](https://user-images.githubusercontent.com/20253082/39230500-519d4a1a-4884-11e8-9b24-4df1cec8b00c.PNG)
